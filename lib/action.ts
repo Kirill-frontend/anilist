@@ -68,7 +68,7 @@ export const getWatchList = async (userId: string, offset: number = 0) => {
   }
 }
 
-export const getCountWatchList = async (userId: string) => {
+export const getCountWatchList = async (userId: string): Promise<number> => {
   try {
     const watchList = await prisma.watchList.findMany({
       where: { userId },
@@ -76,6 +76,6 @@ export const getCountWatchList = async (userId: string) => {
 
     return watchList.length
   } catch (error) {
-
+    throw new Error('Failed to fetch')
   }
 }

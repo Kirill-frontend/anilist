@@ -23,7 +23,7 @@ export const getAnimeById = async (id: string): Promise<IAnime> => {
     const json = await request.json()
     return {...json.data, loading: false}
   } catch (error) {
-    console.log(error.message)
+    throw new Error('Failed to fetch data')
   }
 
 }

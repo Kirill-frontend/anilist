@@ -4,7 +4,7 @@ import { IGenre } from '@/app/types/genre'
 import { Checkbox, Label } from "flowbite-react";
 import Loader from "./Loader";
 
-const SearchInput = ({handleInput, loading}: {handleInput: Function, loading: boolean}) => {
+const SearchInput = ({ handleInput, loading }: { handleInput: Function, loading: boolean }) => {
   const [text, setText] = useState('');
   const [genres, setGenres] = useState<IGenre>({
     adventure: false,
@@ -29,7 +29,15 @@ const SearchInput = ({handleInput, loading}: {handleInput: Function, loading: bo
     romance_comedy: false,
   });
 
-  const genresTitles: IGenre = {
+  type GenresTitles = {
+    [K in keyof IGenre]: string;
+  }
+
+  interface IGenre {
+    [key: string]: boolean;
+  }
+
+  const genresTitles: GenresTitles = {
     adventure: 'Adventure',
     comedy: 'Comedy',
     drama: 'Drama',
@@ -52,24 +60,24 @@ const SearchInput = ({handleInput, loading}: {handleInput: Function, loading: bo
     romance_comedy: 'Romance Comedy',
   }
 
-  
+
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    handleInput({text, genres})
+    handleInput({ text, genres })
   }
 
   return (
     <form onSubmit={handleSubmit} className=' px-4 md:px-0'>
       <div className="max-w-64">
-        <input type="text"  value={text} onChange={(e) => setText(e.target.value)} className="bg-transparent w-full text-white placeholder:text-white outline-none rounded-lg  border-[1px] ring-0 " placeholder="Input some anime name..." />
-        
+        <input type="text" value={text} onChange={(e) => setText(e.target.value)} className="bg-transparent w-full text-white placeholder:text-white outline-none rounded-lg  border-[1px] ring-0 " placeholder="Input some anime name..." />
+
       </div>
       <div className="pt-5 flex flex-col flex-wrap md:max-h-32 max-h-72">
         {Object.entries(genresTitles).map((key, idx) => {
           return (
             <div key={idx} className="flex items-center mb-4">
-              <Checkbox color={'green'} id={key[0]} value={key[0]} name={key[0]} checked={genres[key[0]]} onChange={(e) => setGenres({ ...genres, [key[0]]: e.target.checked })}  />
+              <Checkbox color={'green'} id={key[0]} value={key[0]} name={key[0]} checked={genres[key[0]]} onChange={(e) => setGenres({ ...genres, [key[0]]: e.target.checked })} />
               <Label htmlFor={key[0]} className="ms-2 text-sm font-medium  text-gray-300"> {genresTitles[key[0]]} </Label>
               {/* <input id={key[0]} type="checkbox" value={key[0]} name={`genre-${key[0]}`} checked={genres[key[0]]} onChange={(e) => setGenres({ ...genres, [key[0]]: e.target.checked })} className="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" /> */}
               {/* <label htmlFor={key[0]} className="ms-2 text-sm font-medium  text-gray-300">{genresTitles[key[0]]}</label> */}

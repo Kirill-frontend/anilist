@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import { getCountWatchList, getWatchList } from "../../../lib/action";
 import { useEffect, useState } from "react";
 import AnimeList from "../components/AnimeList";
-import { IAnime, IData } from "../types/data";
+import { IAnime } from "../types/data";
 import UserNotFound from "../components/UserNotFound";
 import Loader from "../components/Loader";
 import Pagination from "../components/Pagination";
@@ -22,15 +22,23 @@ const Page = () => {
 
   useEffect(() => {
     setLoading(true)
-    getWatchList(session?.user.id, offset).then(item => {
-      setLoading(false)
-      setAnimeState(item)
-    });
+    if (session) {
+      getWatchList(session?.user.id, offset).then(item => {
+        setLoading(false)
+        setAnimeState(item)
+      });
+    }
 
 
   }, [offset])
 
-  useEffect(() => { getCountWatchList(session?.user.id).then(count => setCount(count)) }, [])
+  useEffect(() => {
+    if (session) {
+      getCountWatchList(session?.user.id).then(async (count) => {
+        setCount(count);
+      });
+    }
+  }, [])
 
 
   const nextHandler = () => {
