@@ -34,15 +34,23 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     getAnimeById(params.id).then((anime) => { setAnimeState(anime) })
-    checkWatch(session?.user.id, params.id).then((watch) => { setIsWatching(watch) })
-  }, [])
+    console.log(session?.user.id)
+    if (session?.user.id) {
+      checkWatch(session?.user.id, params.id).then((watch) => { setIsWatching(watch) })
+    }
+  }, [session])
 
 
   const switchWatchList = () => {
-    setLoading(true)
-    switchWatch(session?.user.id, params.id)
-    setIsWatching(prev => !prev)
-    setLoading(false)
+    if (session) {
+
+      setLoading(true)
+      switchWatch(session?.user.id, params.id)
+      setIsWatching(prev => !prev)
+      setLoading(false)
+    } else {
+      alert('u need to be logged in')
+    }
 
   }
   return (

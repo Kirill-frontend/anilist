@@ -2,7 +2,7 @@
 import { IData } from "../types/data"
 import { IGenre } from "../types/genre"
 
-export const searchAction = async (data: { text: string, genres: IGenre }, offset: number = 0): Promise<IData> => {
+export const searchAction = async (data: { text: string, genres: IGenre }, offset: number): Promise<IData> => {
   const genres = Object.fromEntries(Object.entries(data.genres).filter(([_, value]) => value))
 
 
