@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-export let prisma: PrismaClient;
+export default let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
