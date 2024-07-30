@@ -17,11 +17,20 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token, user }) {
-      session.user.id = user.id;
-
+      session.user.id = user.id;      
       return session
     }
   },
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET,
+}
+
+import type { DefaultSession } from 'next-auth';
+
+declare module 'next-auth' {
+  interface Session {
+    user: DefaultSession['user'] & {
+      id: string;
+    };
+  }
 }
