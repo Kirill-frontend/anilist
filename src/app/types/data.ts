@@ -9,6 +9,7 @@ export interface IAnime {
   attributes: Attributes;
   relationships: Relationships;
   loading: boolean;
+  map(arg0: (anime: IAnime) => import("react").JSX.Element): import("react").ReactNode;
 }
 interface Relationships {
   genres: Genres;

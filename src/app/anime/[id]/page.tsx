@@ -10,6 +10,9 @@ import { IAnime } from "@/app/types/data"
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [animeState, setAnimeState] = useState<IAnime>({
+    map: (arg0: (anime: IAnime) => import("react").JSX.Element): import("react").ReactNode => {
+      return null;
+    },
     id: '',
     type: '',
     links: {
