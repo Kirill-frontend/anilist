@@ -1,8 +1,8 @@
 import { IAnime, IData } from "../types/data"
 
-export const getAnimeList = async (): Promise<IData> => {
+export const getAnimeList = async (offset: number = 0): Promise<IAnime> => {
   try {
-    const request = await fetch('https://kitsu.io/api/edge/anime')
+    const request = await fetch(`https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${offset}`)
     if (!request.ok) {
       throw new Error('Failed to fetch data')
     }
@@ -21,7 +21,7 @@ export const getAnimeById = async (id: string): Promise<IAnime> => {
       throw new Error('error fetching anime')
     }
     const json = await request.json()
-    return json.data
+    return {...json.data, loading: false}
   } catch (error) {
     console.log(error.message)
   }

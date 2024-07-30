@@ -8,6 +8,7 @@ export interface IAnime {
   links: Links;
   attributes: Attributes;
   relationships: Relationships;
+  loading: boolean;
 }
 interface Relationships {
   genres: Genres;

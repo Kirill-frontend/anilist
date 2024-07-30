@@ -17,7 +17,6 @@ export interface IGenre {
   historical: boolean | string,
   post_apocalyptic: boolean | string,
   steampunk: boolean | string,
-  dark_fantasy: boolean | string,
   magic: boolean | string,
   romance_comedy: boolean | string,
 }

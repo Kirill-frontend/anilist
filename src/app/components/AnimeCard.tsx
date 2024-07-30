@@ -10,7 +10,7 @@ const AnimeCard = ({ anime } : {anime: IAnime}) => {
         <Image src={anime.attributes.posterImage.original} className="rounded-lg" alt="anime" width={220} height={340} />
       </div>
       {/* title */}
-      <div className="text-white text-2xl uppercase text-center">
+      <div className="text-white text-2xl uppercase text-center max-w-[232px]">
         {anime.attributes.titles.en || anime.attributes.titles.en_jp}
       </div>
     </Link>
