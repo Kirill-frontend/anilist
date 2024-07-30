@@ -25,12 +25,12 @@ export const switchWatch = async (userId: string, animeId: string) => {
       })
     }
   } catch (err) {
-
+    throw new Error('Failed to fetch')
   }
 
 }
 
-export const checkWatch = async (userId: string, animeId: string) => {
+export const checkWatch = async (userId: string, animeId: string): Promise<boolean> => {
   try {
     const existingWatch = await prisma.watchList.findFirst({
       where: {
@@ -42,7 +42,7 @@ export const checkWatch = async (userId: string, animeId: string) => {
     if (existingWatch) return true
     else return false
   } catch (error) {
-
+    throw new Error('Failed to fetch')
   }
 
 }
@@ -64,7 +64,7 @@ export const getWatchList = async (userId: string, offset: number = 0) => {
     const json = await request.json()
     return json.data
   } catch (error) {
-
+    throw new Error('Failed to fetch')
   }
 }
 

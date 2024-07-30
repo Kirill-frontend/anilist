@@ -18,7 +18,6 @@ interface Relationships {
   mappings: Genres;
   reviews: Genres;
   mediaRelationships: Genres;
-  characters: Genres;
   staff: Genres;
   productions: Genres;
   quotes: Genres;
