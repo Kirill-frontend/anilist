@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from "./prisma"
+import { prisma } from "./prisma"
 
 export const switchWatch = async (userId: string, animeId: string) => {
   try {
