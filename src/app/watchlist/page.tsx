@@ -52,22 +52,22 @@ const Page = () => {
 
 
   return (
-    <div className='container mx-auto pt-10'>
-      <div className="">
-        <span className="text-white text-xl md:text-3xl">Your Watch List: </span>
-      </div>
-      {/* {loading ? <Loader size="global" /> : } */}
-      <Suspense fallback={<Loader size="global" />}>
+    <Suspense fallback={<Loader size="global" />}>
+      <div className='container mx-auto pt-10'>
+        <div className="">
+          <span className="text-white text-xl md:text-3xl">Your Watch List: </span>
+        </div>
+        {/* {loading ? <Loader size="global" /> : } */}
         <>
           <Pagination nextLink={{ link: nextLink, isHidden: offset + 12 >= count }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
           <AnimeList animes={animeState} />
           {/* {animeState && } */}
         </>
-      </Suspense>
 
 
 
-    </div>
+      </div>
+    </Suspense>
   )
 }
 

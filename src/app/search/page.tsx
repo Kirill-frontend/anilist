@@ -46,19 +46,19 @@ const Page = () => {
 
 
   return (
-    <div className='container mx-auto'>
-      <div className="pt-20">
-        <SearchInput />
-        {/* {loading ? <Loader size='global' /> : } */}
-        <Suspense fallback={<Loader size='global' />}>
+    <Suspense>
+      <div className='container mx-auto'>
+        <div className="pt-20">
+          <SearchInput />
+          {/* {loading ? <Loader size='global' /> : } */}
           <>
             <Pagination nextLink={{ link: nextLink, isHidden: true }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
             <AnimeList animes={animes} />
           </>
-        </Suspense>
-      </div>
+        </div>
 
-    </div>
+      </div>
+    </Suspense>
   )
 }
 
