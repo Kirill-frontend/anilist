@@ -19,12 +19,10 @@ const Page = () => {
   const [nextLink, setNextLink] = useState('')
   const [prevLink, setPrevLink] = useState('')
   const [animes, setAnimes] = useState<IAnime[] | []>([])
-  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
-    const getAnimeFromURL = async () => {
-      setLoading(true)
+    const getAnimeFromURL = async () => {      
       const genres: string[] = searchParams.get('filter[categories]')?.split(',') || []
       const text: string | '' = searchParams.get('filter[text]') || ''
       if (genres.length > 0 || text) {
@@ -36,7 +34,6 @@ const Page = () => {
         const result = await searchAction({ genres, offset, text })
 
         setAnimes(result)
-        setLoading(false)
 
       }
     }

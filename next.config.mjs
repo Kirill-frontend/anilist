@@ -5,7 +5,10 @@ const nextConfig = {
       protocol: 'https',
       hostname: 'media.kitsu.app'
     }]
-  }
+  },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 };
 
 export default nextConfig;

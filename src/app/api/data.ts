@@ -1,6 +1,6 @@
 import { IAnime, IData } from "../types/data"
 
-export const getAnimeList = async (offset: number = 0): Promise<IAnime[]> => {
+export const getAnimeList = async (offset: number = 0): Promise<IAnime[] | []> => {
   try {
     const request = await fetch(`https://kitsu.io/api/edge/anime?page[limit]=12&page[offset]=${offset}`)
     if (!request.ok) {
