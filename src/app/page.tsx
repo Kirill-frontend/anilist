@@ -13,7 +13,7 @@ export default function Home() {
 
   const pageParams = useSearchParams()
   const offset = parseInt(pageParams.get('offset') || '0')
-  const [animes, setAnimes] = useState<IAnime | []>([])
+  const [animes, setAnimes] = useState<IAnime[] | []>([])
   const [nextLink, setNextLink] = useState('')
   const [prevLink, setPrevLink] = useState('')
   const [loading, setLoading] = useState(true)
