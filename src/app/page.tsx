@@ -5,48 +5,49 @@ import AnimeList from "./components/AnimeList";
 import Pagination from "./components/Pagination";
 import { IAnime } from "./types/data";
 import Loader from "./components/Loader";
+import { useSearchParams } from "next/navigation";
+
+
 
 export default function Home() {
+
+  const pageParams = useSearchParams()
+  const offset = parseInt(pageParams.get('offset') || '0')
   const [animes, setAnimes] = useState<IAnime | []>([])
-  const [offset, setOffset] = useState(0)
-  const [page, setPage] = useState(1)
+  const [nextLink, setNextLink] = useState('')
+  const [prevLink, setPrevLink] = useState('')
   const [loading, setLoading] = useState(true)
 
+
+  const fetchData = async () => {
+    setLoading(true)
+
+    const response = await getAnimeList(offset)
+    setAnimes(response)
+    const nextUrl = `?offset=${offset + 12}`
+    const prevUrl = `?offset=${(offset - 12) < 0 ? 0 : (offset - 12)}`
+    setNextLink(nextUrl)
+    setPrevLink(prevUrl)
+    setLoading(false)
+
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      const response = await getAnimeList(offset)
-      setAnimes(response)
-      setLoading(false)
 
-    }
     fetchData()
-  }, [offset, page])
+  }, [])
 
-  const nextHandler = () => {
-    setPage(prev => prev + 1)
-    setOffset(prev => prev + 12)
-    console.log(page)
-  }
+  useEffect(() => {
 
-  const prevHandler = () => {
-    setOffset(prev => {
-      if ((prev - 12) > 0) {
-        return prev - 12
-      }
-      else {
-        return 0
-      }
-    })
-    setPage(prev => --prev)
+    fetchData()
+  }, [pageParams])
 
-  }
 
   return (
     <main className="container mx-auto">
       <div className="">
         {loading ? <Loader size="global" /> : <>
-          <Pagination nextHandler={nextHandler} view={{ prev: page !== 1 ? true : false, next: true }} prevHandler={prevHandler} />
+          <Pagination nextLink={{ link: nextLink, isHidden: false }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
           <AnimeList animes={animes} /></>}
       </div>
     </main>
@@ -55,5 +56,5 @@ export default function Home() {
 
 // pagination +
 // user not found +
-// loaders  
+// loaders
 // suspens

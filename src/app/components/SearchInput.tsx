@@ -3,8 +3,13 @@ import { useState } from "react";
 import { IGenre } from '@/app/types/genre'
 import { Checkbox, Label } from "flowbite-react";
 import Loader from "./Loader";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const SearchInput = ({ handleInput, loading }: { handleInput: Function, loading: boolean }) => {
+const SearchInput = () => {
+
+  const searchParams = useSearchParams()
+
+  const router = useRouter()
   const [text, setText] = useState('');
   const [genres, setGenres] = useState<IGenre>({
     adventure: false,
@@ -64,7 +69,22 @@ const SearchInput = ({ handleInput, loading }: { handleInput: Function, loading:
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    handleInput({ text, genres })
+    const handledGenres = []
+
+    for (const g in genres) {
+      if (genres[g]) handledGenres.push(g)
+    }
+
+    // console.log(handledGenres)
+    const query = new URLSearchParams(searchParams.toString())
+
+    query.set('filter\[text\]', text)
+    query.set('filter[categories]', handledGenres.join(','))
+    query.set('page[offset]', '0')
+
+    router.push(`/search?${query.toString()}`)
+    console.log('123');
+    
   }
 
   return (
@@ -79,14 +99,12 @@ const SearchInput = ({ handleInput, loading }: { handleInput: Function, loading:
             <div key={idx} className="flex items-center mb-4">
               <Checkbox color={'green'} id={key[0]} value={key[0]} name={key[0]} checked={genres[key[0]]} onChange={(e) => setGenres({ ...genres, [key[0]]: e.target.checked })} />
               <Label htmlFor={key[0]} className="ms-2 text-sm font-medium  text-gray-300"> {genresTitles[key[0]]} </Label>
-              {/* <input id={key[0]} type="checkbox" value={key[0]} name={`genre-${key[0]}`} checked={genres[key[0]]} onChange={(e) => setGenres({ ...genres, [key[0]]: e.target.checked })} className="w-4 h-4 text-white bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" /> */}
-              {/* <label htmlFor={key[0]} className="ms-2 text-sm font-medium  text-gray-300">{genresTitles[key[0]]}</label> */}
             </div>
           )
         })}
       </div>
       <div className="flex md:justify-end justify-start">
-        <button className="text-white border-none py-2 max-w-72 w-full px-3 text-center hover:bg-gray-400 transition-all bg-gray-500 rounded-md disabled:bg-gray-400 flex justify-center gap-2 items-center" disabled={loading}>Find </button>
+        <button className="text-white border-none py-2 max-w-72 w-full px-3 text-center hover:bg-gray-400 transition-all bg-gray-500 rounded-md disabled:bg-gray-400 flex justify-center gap-2 items-center" >Find </button>
       </div>
     </form>
   )

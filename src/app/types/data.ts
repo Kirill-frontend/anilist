@@ -11,6 +11,7 @@ export interface IAnime {
   loading: boolean;
   map(arg0: (anime: IAnime) => import("react").JSX.Element): import("react").ReactNode;
 }
+
 interface Relationships {
   genres: Genres;
   categories: Genres;

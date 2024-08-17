@@ -118,8 +118,12 @@ const Page = ({ params }: { params: { id: string } }) => {
       animeCharacters: { links: { self: '', related: '' } },
       animeStaff: { links: { self: '', related: '' } }
     },
-    loading: false
+    loading: true
   })
+
+
+
+
   const [isWatching, setIsWatching] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -149,12 +153,15 @@ const Page = ({ params }: { params: { id: string } }) => {
   }
   return (
     <>
-      {animeState.loading ? <> <Loader size="global" /> </> : <>
+      {animeState.loading ? (<> <Loader size="global" /> </>) : <>
         <div className='container mx-auto text-white py-20 flex lg:flex-row gap-4 px-4 md:px-0 items-center justify-between flex-col'>
           {/* left side */}
           <div className="">
             {/* rating */}
-            <div className="text-xl md:text-3xl"> Average Rating: {(+animeState.attributes.averageRating / 20).toFixed(1) || 0} </div>
+            {animeState.attributes.averageRating && (
+
+              <div className="text-xl md:text-3xl"> Average Rating: {(+animeState.attributes.averageRating / 20).toFixed(1) || 0} </div>
+            )}
             {/* title */}
             <div className="text-xl py-5 md:text-4xl"> {animeState.attributes.titles.en || animeState.attributes.titles.en_jp} </div>
             {/* description */}
@@ -166,14 +173,20 @@ const Page = ({ params }: { params: { id: string } }) => {
               </div>
             </>) : (<>
               <div className="pt-5">
-                <button className="py-2 px-4 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400" onClick={switchWatchList}> Add to Watchlist {loading && <Loader size="small" />} </button>
+                {animeState.id && (
+
+                  <button className="py-2 px-4 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400" onClick={switchWatchList}> Add to Watchlist {loading && <Loader size="small" />} </button>
+                )}
               </div>
             </>)}
           </div>
 
           {/* right side trailers  */}
           <div className="w-[50%]">
-            <iframe className="w-full h-96" src={`https:www.youtube.com/embed/${animeState.attributes.youtubeVideoId}`} title="【Animation】Fate / stay night (Trailer)【English】" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            {animeState.id && (
+
+              <iframe className="w-full h-96" src={`https:www.youtube.com/embed/${animeState.attributes.youtubeVideoId}`} title="【Animation】Fate / stay night (Trailer)【English】" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            )}
           </div>
         </div>
       </>}
@@ -182,5 +195,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   )
 }
+
+
 
 export default Page

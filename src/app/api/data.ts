@@ -9,7 +9,7 @@ export const getAnimeList = async (offset: number = 0): Promise<IAnime> => {
     const json = await request.json()
     return json.data
   } catch (error) {
-    throw new Error('Failed to fetch data')
+    throw new Error('Failed to fetch data: ' +  error)
   }
 
 }
