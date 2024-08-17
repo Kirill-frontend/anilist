@@ -4,7 +4,7 @@
 import SearchInput from '@/app/components/SearchInput'
 import { IGenre } from '../types/genre'
 import { searchAction } from '../api/search'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import AnimeList from '../components/AnimeList'
 import { IAnime, IData } from '../types/data'
 import Pagination from '../components/Pagination'
@@ -48,11 +48,14 @@ const Page = () => {
   return (
     <div className='container mx-auto'>
       <div className="pt-20">
-        <SearchInput  />
-        {loading ? <Loader size='global' /> : <>
-          <Pagination nextLink={{ link: nextLink, isHidden: true }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
-          <AnimeList animes={animes} />
-        </>}
+        <SearchInput />
+        {/* {loading ? <Loader size='global' /> : } */}
+        <Suspense fallback={<Loader size='global' />}>
+          <>
+            <Pagination nextLink={{ link: nextLink, isHidden: true }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
+            <AnimeList animes={animes} />
+          </>
+        </Suspense>
       </div>
 
     </div>

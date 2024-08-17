@@ -33,12 +33,10 @@ export default function Home() {
   }
 
   useEffect(() => {
-
     fetchData()
   }, [])
 
   useEffect(() => {
-
     fetchData()
   }, [pageParams])
 
@@ -46,9 +44,13 @@ export default function Home() {
   return (
     <main className="container mx-auto">
       <div className="">
-        {loading ? <Loader size="global" /> : <>
-          <Pagination nextLink={{ link: nextLink, isHidden: false }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
-          <AnimeList animes={animes} /></>}
+        {/* {loading ? <Loader size="global" /> : } */}
+        <Suspense fallback={<Loader size="global" />}>
+          <>
+            <Pagination nextLink={{ link: nextLink, isHidden: false }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
+            <AnimeList animes={animes} />
+          </>
+        </Suspense>
       </div>
     </main>
   );

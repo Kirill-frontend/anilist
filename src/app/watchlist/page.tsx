@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react"
 import { getCountWatchList, getWatchList } from "../../../lib/action";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import AnimeList from "../components/AnimeList";
 import { IAnime } from "../types/data";
 import UserNotFound from "../components/UserNotFound";
@@ -53,13 +53,17 @@ const Page = () => {
 
   return (
     <div className='container mx-auto pt-10'>
-      {loading ? <Loader size="global" /> : <>
-        <div className="">
-          <span className="text-white text-xl md:text-3xl">Your Watch List: </span>
-        </div>
-        <Pagination nextLink={{ link: nextLink, isHidden: offset + 12 >= count}} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
-        {animeState && <AnimeList animes={animeState} />}
-      </>}
+      <div className="">
+        <span className="text-white text-xl md:text-3xl">Your Watch List: </span>
+      </div>
+      {/* {loading ? <Loader size="global" /> : } */}
+      <Suspense fallback={<Loader size="global" />}>
+        <>
+          <Pagination nextLink={{ link: nextLink, isHidden: offset + 12 >= count }} prevLink={{ link: prevLink, isHidden: offset === 0 }} />
+          <AnimeList animes={animeState} />
+          {/* {animeState && } */}
+        </>
+      </Suspense>
 
 
 
