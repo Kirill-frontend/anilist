@@ -2,7 +2,7 @@
 import AnimeCard from "./AnimeCard"
 import { IAnime, IData } from "../types/data"
 
-const AnimeList = ({ animes }: { animes: [] | IAnime[] }) => {  
+const AnimeList = ({ animes }: { animes:  IAnime[] | [] }) => {  
 
 
   return (
