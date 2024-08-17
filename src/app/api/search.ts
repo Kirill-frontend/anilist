@@ -2,7 +2,7 @@
 import { IAnime, IData } from "../types/data"
 import { IGenre } from "../types/genre"
 
-export const searchAction = async (data: { text: string, genres: string[], offset: number }): Promise<IAnime> => {
+export const searchAction = async (data: { text: string, genres: string[], offset: number }): Promise<IAnime[]> => {
   // const genres = Object.fromEntries(Object.entries(data.genres).filter(([_, value]) => value))
 
 
