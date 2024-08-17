@@ -14,7 +14,7 @@ export const getAnimeList = async (offset: number = 0): Promise<IAnime[]> => {
 
 }
 
-export const getAnimeById = async (id: string): Promise<IAnime[]> => {
+export const getAnimeById = async (id: string): Promise<IAnime> => {
   try {
     const request = await fetch(`https://kitsu.io/api/edge/anime/${id}`)
     if (!request.ok) {
