@@ -13,7 +13,7 @@ a small website that, thanks to the API, receives data about anime series
 ### Links
 
 - Solution URL: [Github](https://github.com/Kirill-frontend/anilist)
-- Live Site URL: [Vercel](anilist-eta.vercel.app)
+- Live Site URL: [Vercel](https://anilist-nfz7c9zez-kyrylos-projects-1fae32ef.vercel.app)
 
 ### Built with
 
